@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 const path = require('path');
 
 const dataFile = path.join(__dirname, '..', 'data', 'posts.json');
@@ -83,7 +84,7 @@ exports.updatePost = (req, res) => {
 
 // DELETE HANDLER
 exports.deletePost = (req, res) => {
-  let posts = readPosts();
+  const posts = readPosts();
   const filteredPosts = posts.filter((el) => el.id !== parseInt(req.params.id));
   if (filteredPosts.length === posts.length) {
     return res.status(404).json({ message: 'Post not found' });

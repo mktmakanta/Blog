@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const morgan = require('morgan');
 const postRoutes = require('./routes/postsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
+
 const app = express();
-const morgan = require('morgan');
 
 // MIDDLEWARES
 if (process.env.NODE_ENV === 'development') {
