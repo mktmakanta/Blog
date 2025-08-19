@@ -1,0 +1,39 @@
+[
+  {
+    "id": 1,
+    "title": "First Post",
+    "content": "This is my first blog post"
+  },
+  {
+    "id": 2,
+    "title": "Second Post",
+    "content": "This is my second blog post"
+  },
+  {
+    "id": 3,
+    "content": " This is all all about tech",
+    "createdAt": "2025-08-18T21:05:01.909Z"
+  },
+  {
+    "id": 4,
+    "createdAt": "2025-08-18T21:05:32.270Z"
+  },
+  {
+    "id": 5,
+    "createdAt": "2025-08-18T21:06:09.262Z"
+  },
+  {
+    "id": 6,
+    "createdAt": "2025-08-18T21:06:22.409Z"
+  },
+  {
+    "id": 7,
+    "createdAt": "2025-08-18T21:12:59.225Z"
+  },
+  {
+    "id": 8,
+    "title": "Teub",
+    "content": "This is all ahgll about tech",
+    "createdAt": "2025-08-18T21:35:49.841Z"
+  }
+]
