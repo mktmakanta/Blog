@@ -8,18 +8,12 @@ const {
   createPost,
   updatePost,
   deletePost,
-  checkID,
-  checkBody,
 } = require('../controllers/postController');
 
-router.route('/').get(getPosts).post(checkBody, createPost);
+router.route('/').get(getPosts).post(createPost);
 
-router.param('id', checkID);
+// router.param('id', checkID);
 
-router
-  .route('/:id')
-  .get(getPostById)
-  .put(checkBody, updatePost)
-  .delete(deletePost);
+router.route('/:id').get(getPostById).put(updatePost).delete(deletePost);
 
 module.exports = router;

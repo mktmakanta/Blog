@@ -6,11 +6,11 @@ const userController = require('../controllers/userController');
 
 router.route('/').get(userController.getUsers).post(userController.createUser);
 
-router.param('id', userController.validateUserId);
+// router.param('id', userController.validateUserId);
 router
   .route('/:id')
   .get(userController.getUserById)
-  .put(userController.updateUser)
+  .patch(userController.updateUser)
   .delete(userController.deleteUser);
 
 module.exports = router;
