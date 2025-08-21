@@ -14,6 +14,6 @@ router.route('/').get(getPosts).post(createPost);
 
 // router.param('id', checkID);
 
-router.route('/:id').get(getPostById).put(updatePost).delete(deletePost);
+router.route('/:id').get(getPostById).patch(updatePost).delete(deletePost);
 
 module.exports = router;
