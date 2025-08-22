@@ -1,10 +1,55 @@
 const Post = require('../models/Posts');
 
+// GET TOP 5 POSTS USING ALIASING
+exports.topPosts = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = 'title,createdAt';
+  req.query.fields = 'title,author,createdAt';
+  next();
+};
 // GET ALL POSTS
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find() //uncomment below lines later when relations are set up
-      .populate('author', 'name email');
+    console.log(req.query);
+
+    // 1) FILTERING
+    // BUILD QUERY
+    const queryObj = { ...req.query };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    // ADVANCED
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+
+    let query = Post.find(JSON.parse(queryStr));
+
+    // 2) SORTING
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(' ');
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort('-createdAt');
+    }
+
+    // 3) FIELD LIMITING
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
+      query = query.select(fields);
+    } else {
+      query = query.select('-__v');
+    }
+
+    // 4) PAGINATION
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 100;
+    const skip = (page - 1) * limit;
+    query = query.skip(skip).limit(limit);
+    if (req.query.page) {
+      const numPosts = await Post.countDocuments();
+      if (skip >= numPosts) throw new Error('This page does not exist');
+    }
+    const posts = await query.populate('author', 'name email');
     // .populate('comments', 'content author')
     // .populate('categories', 'name')
     // .populate('tags', 'name')
